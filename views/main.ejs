@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Fight List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-light bg-info">
+    <img src="//fightlist.info/template/images/favicon.png">
+    <span class="navbar-brand mb-0 h1">Group List</span>
+    <form action="/logout" method="post"><button type="submit" > <i fas fa-list-key></i> </button></form>
+  </nav>
+
+  <div style= "margin : 3rem">
+    <h3> Current Matches</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"># </th>
+          <th scope="col">List Name</th>
+          <th scope="col"> Created By</th>
+          <th scope="col"> Enter Game</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i=0; i< activeLists.length; i++) { %>
+          <tr>
+            <th scope="row"><%= (i+1) %> </th>
+            <td><%= activeLists[i].name %></td>
+            <td><%= activeLists[i].createdBy %></td>
+            <td>
+              <form class = "page-options" action="/getList" method="post">
+                <input type="hidden" id="custId" name="code" value="<%= activeLists[i].code %>">
+                <input type="hidden" id="custId" name="listId" value="<%= activeLists[i]._id %>">
+                <button type="submit"> Enter List </button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+ 
+  <div style= "margin : 3rem">
+    <form class = "page-options" action="/newList" method="post">
+      <div class="input-group">
+        <span class="input-group-text">New List</span>
+        <input id="trackarea" type="text" name="listName" placeholder="Enter List Name" autocomplete="off" required >
+        <span class="input-group-text">Name</span>
+        <input id="trackarea2" type="text" name="userName" placeholder="Enter your Name" autocomplete="off" required >
+        <button type="submit"> + </button>
+      </div>
+    </form>
+
+  </div>
+
+<!--
+  <div style= "margin : 3rem">
+    <form class = "page-options" action="/enterGame" method="post">
+      <div class="input-group">
+        <span class="input-group-text">Enter Game</span>
+        <input type="text" name="gameCode" placeholder="Enter Game Code" autocomplete="off" class="form-control">
+        <input type="text" name="username" placeholder="Enter name" autocomplete="off" class="form-control">
+        <button type="submit"> + </button>
+      </div>
+    </form>
+  </div> -->
+<%- include("partials/footer") -%>
